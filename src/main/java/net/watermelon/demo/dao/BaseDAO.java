@@ -6,10 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 
 
+
+
+import net.watermelon.admin.menu.vo.Menu;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 // 如果一个类被注解为@Transactional，Spring将会确保类的方法在运行在一个事务中。
-public class BaseDAO {
+public class BaseDAO<T> {
 
 	@Autowired
 	// 自动装配了,不用写SetGet
@@ -281,7 +284,7 @@ public class BaseDAO {
 	 * @return
 	 */
 
-	@SuppressWarnings("unchecked")
+	
 	@Transactional(readOnly = true)
 	public List getObjectLists(String queryStr, int start, int limit) {
 		Session session = sessionFactory.getCurrentSession();
@@ -296,18 +299,20 @@ public class BaseDAO {
 
 	/**
 	 * 通过直接SQL返回列表,返回 List
+	 * @param <T>
 	 * 
 	 * @param queryStr
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Transactional(readOnly = true)
-	public List getObjectLists(String queryStr) {
+	public List<T>  getObjectLists(String queryStr) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = null;
 		query = session.createQuery(queryStr);
 		query.setCacheable(true);
-		List list = query.list();
+		@SuppressWarnings("unchecked")
+		List<T> list = query.list();
 		return list;
 	}
 
