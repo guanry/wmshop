@@ -54,13 +54,13 @@
     <main class="container main">
   
         <div class="row">
-
+<nav id="nav-sidebar" role="navigation">
             <ul class="nav nav-pills nav-stacked col-md-2">
                 <li role="presentation" class="active"><a href="#">Home</a></li>
                 <li role="presentation"><a href="#">Profile</a></li>
                 <li role="presentation"><a href="#">Messages</a></li>
             </ul>
-
+</nav>
             <div class="col-md-10">
             <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
@@ -68,17 +68,20 @@
                     <li class="active">Data</li>
         </ol>
               <div class="page-header">
-  <h1>Menus <small>Subtext for header</small>
-<div class="btn-group pull-right" role="group" >
-  <button type="button" class="btn btn-default">增加</button>
-  <button type="button" class="btn btn-default">帮助</button>
-</div></h1>
+  <h1>Menus <small>系统菜单管理</small>
+ 
+  <a href="#" class="dropdown-toolbar navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar-nav"><i class="glyphicon glyphicon-align-justify"></i></a>
+  
+<ul id="toolbar-nav" class="nav nav-pills pull-right collapse navbar-collapse">
+ <li> <a href="#"  th:href="@{/menu/edit}" class="btn btn-default">增加</a></li>
+  <li><a  class="btn btn-default">帮助</a></li>
+</ul></h1>
 </div>
  <div class="alert alert-success" role="alert">消息显示</div>
              <div class="panel panel-default">
               <div class="panel-heading">
               
-   <div class="btn-group pull-right">
+   <div class=" pull-right">
         <button type="button" class="btn btn-sm" aria-label="Left Align"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button>
         <button type="button" class="btn btn-sm" aria-label="Center Align"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span></button>
         <button type="button" class="btn btn-sm" aria-label="Right Align"><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span></button>
@@ -88,17 +91,20 @@
     </h3>
    
   </div>
+  
+  
   <div class="panel-body">
-             
+  
+     <div class="table-responsive clearfix">       
                 <table class="table">
                     <thead>
                         <tr>
                         <th></th>
                             <th class="col-xs-1">ID</th>
-                            <th>NAME</th>
-                            <th>入口</th>
-                            <th>ENABLED</th>
-                            <th>POSTION</th>
+                            <th>NAME <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></th>
+                            <th>入口  <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th>
+                            <th>ENABLED <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th>
+                            <th>POSTION <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th>
                             <th class="col-xs-2">&nbsp;</th>
                         </tr>
                    <tr>
@@ -119,7 +125,7 @@
 	<th><span class="pull-right">
 								
 								<button type="submit" id="submitFilterButtondetails" name="submitFilter" class="btn btn-default" data-list-id="details">
-									<i class="icon-search"></i> Search
+									<i class="glyphicon glyphicon-search"></i> Search
 								</button>
 															</span>
 			</th>												
@@ -130,15 +136,15 @@
                         <tr th:each="menu:${list}"   >
                         <div draggable="true">
                          <td><input type="checkbox"/></td>
-                            <td  th:text="${menu.id}">menu.id</td>
+                            <td th:text="${menu.id}">menu.id</td>
                             <td th:text="${menu.name}">menu.name</td>
                             <td th:text="${menu.href}">menu.href</td>
                             <td th:text="${menu.enabled}">menu.href</td>
-                            <td th:text="${menu.enabled}">menu.postion</td>
+                            <td ><i class="glyphicon glyphicon-move"></i>menu.postion</td>
                             <td>
 <!-- Split button -->
 <div class="btn-group pull-right">
-  <button type="button" class="btn">编辑</button>
+  <a  href="#" th:href="@{'/menu/edit/'+${menu.id}}" class="btn btn-default">编辑</a>
   <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="caret"></span>
     <span class="sr-only">Toggle Dropdown</span>
@@ -179,7 +185,7 @@
                 
                 </table>
 
-
+</div>
 
  </div>
 </div>
@@ -188,11 +194,7 @@
         </div>
     </main>
 
-    <script>
-        $(function () {
-
-        });
-    </script>
+ 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->

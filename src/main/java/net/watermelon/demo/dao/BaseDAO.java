@@ -36,7 +36,7 @@ public class BaseDAO<T> {
 	 */
 
 	@Transactional(readOnly = true)
-	public Object getOneObject(Class<?> cla, Serializable id) { // 获得单个类,先定义一个Hibernate映射文件,映射类
+	public Object getOneObject(Class<T> cla, Serializable id) { // 获得单个类,先定义一个Hibernate映射文件,映射类
 																// 是映射类名字
 		return sessionFactory.getCurrentSession().get(cla, id);
 	}
