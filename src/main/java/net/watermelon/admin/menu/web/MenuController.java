@@ -2,10 +2,20 @@ package net.watermelon.admin.menu.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import net.watermelon.admin.menu.vo.Menu;
+import net.watermelon.core.PageParam;
+import net.watermelon.core.PagedList;
 import net.watermelon.demo.dao.BaseDAO;
 
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,8 +37,23 @@ public class MenuController {
 	
 	@RequestMapping("/menu/index")
     public String index(Model model) {
-	 	List<Menu> list = (List<Menu>) baseDAO.getObjectLists("from Menu where parent = -1");
-        model.addAttribute("list", list);
+	    MenuSearch menuSearch = new MenuSearch();
+        menuSearch.setParent("-1");
+        model.addAttribute(menuSearch);
+        List list =  baseDAO.getObjectLists(menuSearch.getSQL());
+	    model.addAttribute("list",list);
+        return "/menu/index"; 
+    }
+	
+
+	//下级菜单列表
+	@RequestMapping("/menu/index/{id}")
+    public String index(@PathVariable("id")  Integer id,Model model) {
+	    MenuSearch menuSearch = new MenuSearch();
+        menuSearch.setParent(id.toString());
+        model.addAttribute(menuSearch);
+        List list =  baseDAO.getObjectLists(menuSearch.getSQL());
+	    model.addAttribute("list",list);
         return "/menu/index"; 
     }
 	
@@ -56,15 +81,14 @@ public class MenuController {
 	}
 	
 	/**
-	 * 保存菜单
+	 * 保存菜单@Valid PersonForm personForm, BindingResult bindingResult
 	 * 
 	 * @param model
 	 * @param request
 	 * @param response
 	 */
 	@RequestMapping("/menu/save")
-	public String saveArticle(@ModelAttribute Menu menu, BindingResult result,
-			SessionStatus status) {
+	public String saveMenu(@Valid @ModelAttribute Menu menu, BindingResult result,SessionStatus status) {
 		if (result.hasErrors()) {
 			return "/menu/edit";
 		} else {
@@ -74,4 +98,16 @@ public class MenuController {
 		}
 
 	}
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/menu/search")
+    public String index(@ModelAttribute MenuSearch menuSearch,Model model) {
+	//	PageParam pageParam = PageParam.getPagePara(request);
+		List list =  baseDAO.getObjectLists(menuSearch.getSQL());
+	    model.addAttribute("list",list);
+        return "/menu/index"; 
+    }
 }

@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
+
+//import org.hibernate.validator.constraints.Email;
 
 
 @Entity
@@ -16,9 +19,11 @@ public class Menu {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Size(min = 4, max = 20, message = "菜单名称长度必须位于5到20之间") 
 	@Column(name = "name")
 	private String name;
 	
+//	@Email(message = "必须是Email 格式")
 	@Column(name = "href")
 	private String href;
 	
@@ -30,8 +35,8 @@ public class Menu {
 	private Integer enabled;
 	
 	
-	@Column(name = "sort_id")
-	private Integer sortId;
+	@Column(name = "postion")
+	private Integer postion;
 
 	public Integer getId() {
 		return id;
@@ -71,12 +76,14 @@ public class Menu {
 		this.enabled = enabled;
 	}
 
-	public Integer getSortId() {
-		return sortId;
+
+
+	public Integer getPostion() {
+		return postion;
 	}
 
-	public void setSortId(Integer sortId) {
-		this.sortId = sortId;
+	public void setPostion(Integer postion) {
+		this.postion = postion;
 	}
 
 	public void setId(Integer id) {
