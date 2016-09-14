@@ -285,21 +285,27 @@ public class OrganizationController {
 	public String getUnManageOrg(Model model){
 		List<Organization>  orgs = organzationManager.getUnOrg();
 		model.addAttribute("orgs",orgs);
-		return "/org/orgSons::orgSons";
+		return "/org/orgSons::orgUnManager";
 		
 	}
 	
 	/**
 	 * 未管理部门记入此部门
 	 */
+	@ResponseBody
 	@RequestMapping("/add_org_list")
-	public String addUnOrg(Integer[] idx,Model model){
-		List<Organization>  orgs = organzationManager.getUnOrg();
-		model.addAttribute("orgs",orgs);	
-		
-		return "/org/orgSons::orgSons";
+	public String addUnOrg(Integer[] idx){
+		organzationManager.saveUnOrg(idx);
+			return "/org/orgSons::orgSons";
 	}
 	
+	/**
+	 * 保存部门排列位置
+	 * @param treeId
+	 * @param pos
+	 * @param status
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/org_save_pos_json")
 	public ValidationResponse org_save_pos_json(Integer[] treeId,Integer [] pos, SessionStatus status){
