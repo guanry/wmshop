@@ -1,14 +1,9 @@
-package net.watermelon.demo.dao;
+package net.watermelon.core;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-
-
-
-import net.watermelon.admin.menu.vo.Menu;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 // 如果一个类被注解为@Transactional，Spring将会确保类的方法在运行在一个事务中。
-public class BaseDAO<T> {
+public  class BaseDAO {
 
 	@Autowired
 	// 自动装配了,不用写SetGet
@@ -36,7 +31,7 @@ public class BaseDAO<T> {
 	 */
 
 	@Transactional(readOnly = true)
-	public Object getOneObject(Class<T> cla, Serializable id) { // 获得单个类,先定义一个Hibernate映射文件,映射类
+	public Object getOneObject(Class<?> cla, Serializable id) { // 获得单个类,先定义一个Hibernate映射文件,映射类
 																// 是映射类名字
 		return sessionFactory.getCurrentSession().get(cla, id);
 	}
@@ -75,7 +70,7 @@ public class BaseDAO<T> {
 	public PagedList getPagedList(String sql, int start, int limit) {
 		Session session = sessionFactory.getCurrentSession();
 		PagedList pageList = new PagedList();
-		;
+	
 		try {
 			int count = getObjectsCount(getCountQuery(sql));
 			Query q = session.createQuery(sql);
@@ -107,7 +102,6 @@ public class BaseDAO<T> {
 	public PagedList getObjects(String queryStr, String[] paramNames,
 			Object[] params, int start, int limit) {
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println(sessionFactory.getStatistics());
 		Query query = null;
 		query = session.createQuery(getCountQuery(queryStr));
 		query = setQuery(query, paramNames, params);
@@ -284,7 +278,7 @@ public class BaseDAO<T> {
 	 * @return
 	 */
 
-	
+	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	public List getObjectLists(String queryStr, int start, int limit) {
 		Session session = sessionFactory.getCurrentSession();
@@ -299,20 +293,18 @@ public class BaseDAO<T> {
 
 	/**
 	 * 通过直接SQL返回列表,返回 List
-	 * @param <T>
 	 * 
 	 * @param queryStr
 	 * @return
 	 */
-
+	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public List<T>  getObjectLists(String queryStr) {
+	public List getObjectLists(String queryStr) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = null;
 		query = session.createQuery(queryStr);
 		query.setCacheable(true);
-		@SuppressWarnings("unchecked")
-		List<T> list = query.list();
+		List list = query.list();
 		return list;
 	}
 
@@ -402,7 +394,7 @@ public class BaseDAO<T> {
 		int count = query.executeUpdate();
 		return count;
 	}
-	
+
 	@Transactional
 	public int updateSQLStr(String sqlStr,String[] paramNames,
 			Object[] params) {
@@ -414,5 +406,32 @@ public class BaseDAO<T> {
 		return count;
 	}
 
-
+	
+	/**
+	 * guanxi add for dataTable 20150201 需要优化
+	 * @param sql
+	 * @param dataTableParam
+	 * @return
+	 */
+	
+	public DataTableVo getPagedList(String sql, DataTableParam dataTableParam) {
+		Session session = sessionFactory.getCurrentSession();
+		DataTableVo pageList = new DataTableVo();
+	
+		try {
+			int count = getObjectsCount(getCountQuery(sql));
+			Query q = session.createQuery(sql);
+			q.setCacheable(true);
+			q.setFirstResult(dataTableParam.getStart());
+			q.setMaxResults(dataTableParam.getLength());
+			List<?> result = q.list();
+			pageList.setData(result);
+			pageList.setRecordsTotal(count);
+			pageList.setDraw(dataTableParam.getDraw());
+			pageList.setRecordsFiltered(count);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pageList;
+	}
 }

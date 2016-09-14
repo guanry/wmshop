@@ -1,8 +1,16 @@
 package net.watermelon.admin.menu.web;
 
+import java.io.Serializable;
+
 import net.watermelon.core.SearchBean;
 
-public final class MenuSearch extends SearchBean{
+public final class MenuSearchCriteria implements SearchBean , Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	private String id;
 	private String name;
@@ -87,9 +95,7 @@ public final class MenuSearch extends SearchBean{
 				querysql = querysql + " and enabled  = " + enabled ;
 			}
 		
-		if (orderby != null && orderby != "") {
-			querysql = querysql + " order by " + orderby + " " + order;
-		} 
+	
 		
 		return querysql;
 	}
