@@ -1,0 +1,151 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorator="/demo/blank_page">
+<section   layout:fragment="pageCss">
+        <link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+ 
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="/assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+    </section>
+    
+        <div  layout:fragment="content">
+          <div class="row">
+           
+       <div class="col-md-6">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold" th:text="角色列表" > </span>
+                                    </div>
+                       </div>
+                                <div class="portlet-body">
+                               
+                                   <ul class="list-group" th:each="role : ${roles}">
+                                        <li class="list-group-item" >
+				       <span th:text="${role.text}"  >  </span> &nbsp;
+                                         <a href="javascript:;"  class="nav-link js-role-menu" th:text="${role.name}"  th:href="@{menu(roleid=${role.id})}"> </a>
+
+                                           
+                                        </li>
+                                      
+                                                   </ul>
+                        
+                        
+                                </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold" th:text="${panelTitle}" > </span>
+                                        </div>
+                                    <div class="actions">
+                                    <div class="btn-group"> 
+                                        <a class = "btn green btn-outline btn-circle btn-sm" id="js_save_role_tree"> 保存</a>
+                                    </div>
+                                    </div>
+                                    
+                       </div>
+                                <div class="portlet-body">
+                               
+                    			    <div role="tree" id="tree_4" class="jstree-open"> <!--这里需要初始化一个Tree--></div>
+                        
+                        
+                                </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+
+
+
+
+
+        </div>   
+    </div>
+
+<section  layout:fragment="pageScript">
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="/assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+
+<script  th:inline="javascript">
+ /*<![CDATA[*/
+$(function(){
+ var  roleid = [[${param.roleid}]];
+  var ajaxTree = function() {
+       $("#tree_4").jstree({
+            "core" : {
+                "themes" : {
+                    "responsive": false
+                }, 
+                 "check_callback" : true,
+                'data' : {
+                    'url' : function (node) {
+                      return 'menu/category-role-json?roleid='+roleid[0];
+                    },
+                    'data' : function (node) {
+                      return { 'parent' : node.id };
+                    },
+	          }
+            },
+            "types" : {
+                "default" : {
+                    "icon" : "fa fa-folder icon-state-warning icon-lg"
+                     
+                },
+                "file" : {
+                    "icon" : "fa fa-file icon-state-warning icon-lg"
+                }
+            },
+
+            "state" : { "key" : "menuList" },
+            'plugins' : [ 'json_data','types','checkbox']
+        });
+    }
+
+   //这里是移动节点的操作
+     $('#tree_4').on('move_node.jstree', function(e,data) { 
+                 jQuery.post("menu/dnd-json",{                                        
+                      id : data.node.id, 
+                      parent : data.parent,
+                      position:data.position,
+                      oldParent:data.old_parent,
+                      isMulti:data.is_multi
+                      },
+                      function(data,status){ }, 'json');
+        
+     });
+     
+     
+ ajaxTree();
+ 
+
+$('#js_save_role_tree').click(function(){
+  var treeid = $('#tree_4').jstree().get_checked();
+ var  roleid = [[${param.roleid}]];
+  $.get("menu/save-role-category-json",{treeid:treeid,roleid:roleid[0]},function(data,status){ 
+    alert("Data: " + data + "nStatus: " + status);
+  });
+});
+
+
+ });
+   
+    
+              
+
+              
+   
+
+
+/*]]>*/
+</script>
+
+  </section> 
+   </html>

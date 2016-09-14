@@ -1,0 +1,335 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorator="/demo/blank_page">
+<section   layout:fragment="pageCss">
+        <link href="/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+ 
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="/assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/global/plugins/jquery-nestable/jquery.nestable.css" rel="stylesheet" type="text/css" />
+        
+        <!-- END PAGE LEVEL PLUGINS -->
+    </section>
+    
+        <div  layout:fragment="content">
+          <div class="row">
+    <!-- 树-->
+                        <div class="col-md-4" id="orgTree">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold" th:text="${panelTitle}" > </span>
+                                        </div>
+                            <div class="actions">
+                                    <div class="btn-group"> 
+                                        <a class = "btn green btn-outline btn-circle btn-sm" id="js_add_new">增加新机构</a>
+                                     
+                           </div>   </div>
+                                    
+                       </div>
+                                <div class="portlet-body">
+                               
+                    			    <div role="tree"  id="tree_4" class="jstree-open"> <!--这里需要初始化一个Tree--></div>
+                        
+                        
+                                </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+
+				<div class="col-md-8">
+				
+				<div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold">组织机构</span>
+                                        </div>
+                                
+                                    <div class="actions">
+                                    <div class="btn-group"> 
+                                        <a class = "btn green btn-outline btn-circle btn-sm" id="js_save"> 保存</a>
+                                      
+                                    </div>
+                                    
+                  </div>
+       </div>
+   <div class="portlet-body"  id="organization-body">
+  <div class="table-toolbar"></div>
+ <form class="form-horizontal" action="#"   method="post" name="organization" id="organization">
+<input type="hidden" id="id" name="id"  />
+ <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<input type="hidden" id="treeId" name="treeId" />
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">部门名称 <span class="required"> * </span></label> 
+    <div class="col-sm-10">
+      
+         <input type="text" class="form-control" id="name"  placeholder="部门名称" name="name" required="" />
+
+    </div> 
+  </div>
+  
+    <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">部门编码</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="code" placeholder="部门编码" name="code" />
+      </div> 
+  </div>
+ 
+
+    <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">地址</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="addr" placeholder="地址" name="addr" />
+   
+    </div> 
+  </div>
+ 
+        <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">职责说明</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="text" placeholder="职责说明" name="text" />
+    
+    </div> 
+  </div>
+ 
+
+ 
+</form>
+       </div>
+		   </div>
+			
+				
+
+  <div class="portlet light portlet-fit bordered">
+          
+       <div class="portlet-body">
+              
+                
+              
+
+<div class="portlet-body">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tab_1_1"> 下设部门 </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#tab_1_2"> 下设人员 </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#tab_1_3"> 未管理部门 </a>
+                                        </li>
+                                         <li>
+                                            <a data-toggle="tab" href="#tab_1_4"> 未管理人员 </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab_1_1" class="tab-pane fade active in">
+                                        
+                                        </div>
+                                        <div id="tab_1_2" class="tab-pane fade">
+                                            <p>内容2  </p>
+                                        </div>
+                                        <div id="tab_1_3" class="tab-pane fade">
+                                            <p>内容2  </p>
+                                        </div>
+                                         <div id="tab_1_4" class="tab-pane fade">
+                                            <p>内容2  </p>
+                                        </div>
+                                    </div>
+                                 
+                                 
+                                </div>
+                
+
+       </div>
+        </div>
+
+
+				</div>
+				
+        </div>   
+    </div>
+
+<section  layout:fragment="pageScript">
+  <!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>      
+<script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+     <script src="/assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script>
+      <script src="/assets/global/plugins/jquery.form.js" type="text/javascript"></script>
+
+      <script src="/assets/global/plugins/jquery.formFill.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+<script src="/assets/global/scripts/datatable.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+<script src="/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+   <script src="/assets/global/plugins/jquery-nestable/jquery.nestable.js" type="text/javascript"></script>
+<script    th:replace="/fragment/js :: Table('org-json','#user_table')"  ></script> <!-- 加入表格的内容 -->
+<script th:inline="javascript">
+ /*<![CDATA[*/
+$(function(){
+
+//页面验证设置
+var Valideoptions = {
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: ""  // validate all fields including form hidden input
+                };
+var options = {
+       target:'#organization-body',
+       url: 'org_save_json',
+       type: 'post',
+       dataType: 'json',
+       success: function(data){
+         App.unblockUI('#tree_4');
+          App.unblockUI('#organization-body');  //取消遮罩
+           if(data.status=='SUCCESS'){
+				$("#tree_4").jstree().refresh();  //树的刷新
+           //显示提示窗
+               App.alert({
+                    type: 'success',
+                    icon: 'info',
+                    message: '保存成功',
+                    container:  '#organization-body',
+                    place: 'prepend',
+                    closeInSeconds:3
+                 });
+           }else{
+             App.alert({
+                    type: 'danger',
+                    icon: 'warning',
+                    message: '保存数据有错误',
+                    container:  '#organization-body',
+                    place: 'prepend',
+                    closeInSeconds:3
+                });
+               $.each(data.errorMessageList,function(idx,obj){
+                    //增加错误消息
+                $("input[name='"+obj.fieldName+"']").parent().append("<span  id='"+obj.fieldName+"-error'  class='help-block help-block-error'>"
+                  +obj.message+"</span>"); 
+               });
+           
+           }     
+        },
+       timeout: 1000000,
+       error: function(data){
+      	    alert('系统错误，请稍候访问.....');
+       }
+   };
+
+
+
+  var ajaxTree = function() {
+        $("#tree_4").jstree({
+            "core" : {
+                "themes" : {
+                    "responsive": false
+                }, 
+                 "check_callback" : true,
+                'data' : {
+                    'url' : function (node) {
+                      return 'org-tree-json';
+                    },
+                    'data' : function (node) {
+                      return { 'parent' : node.id };
+                    },
+	          }
+            },
+            "types" : {
+                "default" : {
+                    "icon" : "fa fa-folder icon-state-warning icon-lg"
+                     
+                },
+                "file" : {
+                    "icon" : "fa fa-file icon-state-warning icon-lg"
+                }
+            },
+             'plugins' : ['json_data','types']
+        });
+    }
+     
+   ajaxTree();
+   <!-- 注册树点击事件 -->
+   $('#tree_4').on('select_node.jstree', function(e,data) { 
+       
+       $('span.help-block-error').remove();
+       $('.help-block-error').removeClass('.help-block-error');
+        $('.help-block').removeClass('.help-block');
+       var link = $('#' + data.selected);
+			 setFormData(link);
+		orgid = $(link).attr("id");
+		  $('#tab_1_1').load('org_son_json/'+orgid);
+	//		  $('#tab_1_2').load('org_member_json/'+orgid); 
+	//		  $('#tab_1_3').load('org_un_menager_json');
+	//		  $('#tab_1_4').load('org_un_member_json');
+     });
+ 
+  //点击Tree,获得数据填充表单
+   function setFormData(a){
+	 		 App.blockUI({
+                target: '#tree_4',
+                animate: true
+            });
+            	 App.blockUI({
+                target: '#organization-body',
+                animate: true
+            });
+ 	    	
+        orgid = $(a).attr("id");
+        
+               $.ajax({
+                url: "org-form/"+orgid,
+                type: "POST",
+                data: {"_csrf":[[${_csrf.token}]]},
+                success: function(data) {
+                        $('#organization').fill(data);  
+                         App.unblockUI('#tree_4');
+                        App.unblockUI('#organization-body');
+                     
+                  },
+                cache: false,
+                timeout: 1000000,
+                error: function() {
+                   alert('系统错误，请稍候访问.....');
+                }
+            });
+     
+		  }
+     
+$('#organization').validate(Valideoptions);
+ $('#js_save').click(function(){
+  	//表单验证
+  	 if($('#organization').valid())
+        {
+        App.blockUI({
+                target: '#tree_4',
+                animate: true
+            });
+
+        App.blockUI({
+                target: '#organization-body',
+                animate: true
+            });
+   
+    $('#organization').ajaxSubmit(options);
+  }
+ });
+  
+ 
+ //添加新节点      
+$('#js_add_new').click(function(){
+   $("#organization :input").not(":button, :submit, :reset, :hidden").val("").removeAttr("checked").remove("selected");
+	$("#organization #id").val('');
+});
+
+  
+   
+
+       
+  });
+/*]]>*/
+</script>
+
+  </section> 
+   </html>

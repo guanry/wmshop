@@ -1,0 +1,38 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorator="/demo/blank_page">
+   <div  layout:fragment="content">
+          <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold">申请假期</span>
+                                    </div>
+             </div>
+                                <div class="portlet-body">
+                                
+          <img th:src="@{graphpic(executionid=${param.executionid})}"/> 
+ 
+       <div  th:style="${'position:absolute;border:2px solid red;left:'+(wfLeaveImag.x+36)+'px;top:' +(wfLeaveImag.y+86)+'px;width:' +
+        wfLeaveImag.width+'px;height:'+wfLeaveImag.height+'px;'
+       }" >
+
+       </div>
+      
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>   
+    </div>    </div>
+ <section  layout:fragment="pageScript">
+
+
+  </section>
+   </html>
+
+    
+
+    
+
+    

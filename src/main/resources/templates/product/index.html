@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="/plug-in/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <link href="/plug-in/bootstrap/css/normalize.css" rel="stylesheet"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+    .main {
+        padding-top: 70px;
+    }
+    
+  
+</style>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">DEMO</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">首页</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+    <main class="container main">
+  
+        <div class="row">
+<!--左侧菜单项目 -->
+
+<nav id="nav-sidebar" role="navigation">
+            <ul class="nav nav-pills nav-stacked col-md-2"  >
+                 <li role="presentation" th:each="menu:${menuList}"><a href="#" th:text="${menu.name}">Home</a></li>
+              </ul>
+</nav>
+
+            <div class="col-md-10">
+            <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Library</a></li>
+                    <li class="active">Product</li>
+        </ol>
+              <div class="page-header">
+  <h1>Menus <small>商品管理</small>
+ 
+  <a href="#" class="dropdown-toolbar navbar-toggle collapsed" data-toggle="collapse" data-target="#toolbar-nav"><i class="glyphicon glyphicon-align-justify"></i></a>
+  
+<ul id="toolbar-nav" class="nav nav-pills pull-right collapse navbar-collapse">
+ <li> <a href="#"  th:href="@{/product/edit}" class="btn btn-default">增加</a></li>
+  <li><a  class="btn btn-default">帮助</a></li>
+</ul></h1>
+</div>
+<!-- <div class="alert alert-success" role="alert">消息显示</div> -->
+             <div class="panel panel-default">
+              <div class="panel-heading">
+              
+   <div class=" pull-right">
+        <button type="button" class="btn btn-sm" aria-label="Left Align"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button>
+        <button type="button" class="btn btn-sm" aria-label="Center Align"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span></button>
+        <button type="button" class="btn btn-sm" aria-label="Right Align"><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span></button>
+        <button type="button" class="btn btn-sm" aria-label="Justify"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></button>
+      </div>
+     <h3 class="panel-title">Menus<!-- <span class="badge">${list.size()}</span> -->
+    </h3>
+   
+  </div>
+  
+  
+  <div class="panel-body">
+  
+     <div class="clearfix">       
+                <table class="table">
+              
+              <form action="" th:action="@{/product/search}" th:object="${productSearchCriteria}" method="post">
+                    <thead>
+                        <tr>
+                        <th></th>
+                            <th>ID</th>
+                            <th>Image <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></th>
+                            <th>Name  <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th>
+                            <th>Reference <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></th>
+                            <th>Category </th>
+                            <th >Base Price</th>
+                             <th >Final Price</th>
+                              <th>Quantity</th>
+                                <th>status</th>
+                                <th></th>
+                        </tr> 
+                   <tr>
+					<th >--</th>
+						<th>
+						<input type="text" class="form-control" name="id" value=""  th:field="*{id}" />
+						</th>
+						<th >--</th>
+	                <th><input type="text" class="form-control" name="name" value=""  th:field="*{name}"/></th>
+	                	
+				    	<th ><input type="text" class="form-control" name="reference" value="" th:field="*{reference}"/></th>
+						<th ><input type="text" class="form-control" name="" value="" th:field="*{category}" /></th>
+						<th ><input type="text" class="form-control" name="" value="" th:field="*{basePrice}" /></th>
+                      <th >--</th>
+                        <th><input type="text" class="form-control" name="" value=""  th:field="*{quantity}"/></th>
+                           <th ><input type="text" class="form-control" name="" value="" th:field="*{status}" /></th>
+                  
+    <th><span class="pull-right">
+								<button type="submit" id="submitFilterButtondetails" name="submitFilter" class="btn btn-default" >
+									<i class="glyphicon glyphicon-search"></i> 查询
+								</button>
+		     </span>
+	</th>												
+	</tr>		
+			        </thead>
+			        </form>
+                    <tbody>
+                        <tr th:each="product:${list}"  >
+                        <div >
+                         <td><input type="checkbox"/></td>
+                            <td th:text="${product.id}">product.id</td>
+                            <td th:text="${product.name}">product.name</td>
+                            <td th:text="${product.category}">product.href</td>
+                            <td th:text="${product.basePrice}">product.href</td>
+                            <td > <span th:text="${product.postion}"></span></td>
+                              <th  th:text="${product.category}">Category </th>
+                            <th    th:text="${product.quantity}">Base Price</th>
+                             <th  th:text="${product.status}">Final Price</th>
+                        
+                             
+                                <th></th>
+                            <td>
+<!-- Split button -->
+<div class="btn-group pull-right">
+  <a  href="#" th:href="@{'/product/edit/'+${product.id}}" class="btn btn-default">编辑</a>
+  <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#" th:href="@{'/product/index/'+${menu.id}}">查看</a></li>
+    <li><a href="#" th:href="@{'/product/delete/'+${menu.id}}"  class="js-itemDelete" th:attr="data_name=${menu.name}">删除</a></li> 
+  </ul>
+</div>
+
+
+                            </td>
+                    </div>        
+                        </tr>
+                    </tbody> 
+                    
+                    <tfoot>
+    <tr>
+    <td  colspan='5'>  <div class="btn-group dropup">
+  <button type="button" class="btn btn-default">批处理</button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">全选</a></li>
+    <li><a href="#">删除选择</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">其他</a></li>
+  </ul>
+</div> </td>
+    </tr>
+  </tfoot>
+                
+                </table>
+
+</div>
+
+ </div>
+</div>
+
+            </div>
+        </div>
+    </main>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+
+    <script src="/plug-in/bootstrap/js/bootstrap.min.js"></script>
+    
+<script>
+ $(function(){
+ 
+
+	$('.js-itemDelete').click(function(){
+
+		if(confirm('确定删除此记录么？')){
+		
+		return true;
+		}
+		return false;
+		}); 
+	
+	 	
+	
+ });
+ 
+</script>
+
+
+</body>
+
+</html>

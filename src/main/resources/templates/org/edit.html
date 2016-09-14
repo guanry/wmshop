@@ -1,0 +1,104 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorator="/demo/blank_page">
+   <div  layout:fragment="content">
+          <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold">组织机构管理</span>
+                                        </div>
+                                      <div class="actions">
+                                    <div class="btn-group"> 
+                                        <a class = "btn green btn-outline btn-circle btn-sm" id="js_save"> 保存</a>
+                                    </div>
+                                    
+                                        
+                                    </div>
+             </div>
+ <div  th:fragment="orgform">
+            <div class="table-toolbar">
+               </div>
+ <form class="form-horizontal" action="#" th:action="@{/org/save}" th:object="${organization}" method="post" name="organization" id="organization">
+<input type="hidden" id="id" name="id"  th:field="*{id}"/>
+ <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<input type="hidden" id="treeId" name="treeId"  th:field="*{treeId}"/>
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">部门名称</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control " id="name" placeholder="部门名称" name="name"  th:field="*{name}"/>
+      <span th:if="${#fields.hasErrors('name')}"  th:errors="*{name}"  >Name Error</span>
+    </div> 
+  </div>
+  
+    <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">部门编码</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="code" placeholder="部门编码" name="code"  th:field="*{code}"/>
+      <span th:if="${#fields.hasErrors('code')}"  th:errors="*{code}"  >Name Error</span>
+    </div> 
+  </div>
+ 
+
+    <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">地址</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="addr" placeholder="地址" name="addr"  th:field="*{addr}"/>
+      <span th:if="${#fields.hasErrors('addr')}"  th:errors="*{addr}"  >Name Error</span>
+    </div> 
+  </div>
+ 
+        <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">职责说明</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="text" placeholder="职责说明" name="text"  th:field="*{text}"/>
+      <span th:if="${#fields.hasErrors('text')}"  th:errors="*{text}"  >Name Error</span>
+    </div> 
+  </div>
+ 
+
+  <!-- 
+ <div class="form-group">
+    <div class="col-sm-2">
+      <button type="reset" class="btn btn-default">取 消</button>
+    </div>
+    <div class="col-sm-2">
+      <button type="submit" class="btn btn-default">保 存</button>
+    </div>
+    
+    <div class="col-sm-2">
+      <a   th:href="@{'/org/index/'+*{id}}"  class="btn btn-default">下级部门</a >
+    </div>
+    
+    <div class="col-sm-2">
+      <a  href="#"  th:href="@{/org/user}"  class="btn btn-default">部门成员</a >
+    </div>
+         <div class="col-sm-2">
+      <a    th:href="@{/org/index}" class="btn btn-default">返   回</a>
+    </div>
+
+  </div>
+  
+  -->
+</form>
+       </div>
+              </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>   
+    </div>
+ <section  layout:fragment="pageScript">
+  <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+ <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+ <script src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+ <script src="/assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>   
+
+  </section>
+   </html>
+
+    
+
+    
+
+    

@@ -1,0 +1,111 @@
+<script  th:inline="javascript"  th:fragment="Table(ajax,tableName)">
+ /*<![CDATA[*/
+var TableDatatablesAjax = function () {
+   var handleRecords = function () {
+   var grid = new Datatable();
+        grid.init({
+            src: $([[${tableName}]]),
+            onSuccess: function (grid, response) {
+                // grid:        grid object
+                // response:    json object of server side ajax response
+                // execute some code after table records loaded
+            },
+          crsfName:  [[${_csrf.parameterName}]],
+          crsfToken :  [[${_csrf.token}]],
+           onError: function (grid) {
+                // execute some code on network or other general error  
+            },
+            onDataLoad: function(grid) {
+                // execute some code on ajax data load
+            },
+            loadingMessage: 'Loading...',
+            dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 
+
+                // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/scripts/datatable.js). 
+                // So when dropdowns used the scrollable div should be removed. 
+               "dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r>t<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>",
+       
+            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+				   "language": {
+              url: '/assets/global/plugins/datatables/Chinese.json'
+              },   
+                "ajax": {
+                    "url": [[${ajax}]], // ajax source
+                },
+              
+			   "columnDefs": [
+            {
+             'orderable': false,
+        	  'targets': [0],
+             render: getCheckBox 
+             },
+            {    targets: -1,
+              
+                  render: getOperateBox,
+                   orderable: false
+           },
+   	],
+				
+                "lengthMenu": [
+                    [10, 20, 50, 100, 150, -1],
+                    [10, 20, 50, 100, 150, "All"] // change per page values here
+                ],
+                "pageLength": 10, // default record count per page
+           
+               
+                "order": [
+                    [1, "asc"]
+                ]// set first column as a default sort by asc
+            }
+        });
+  	 	grid.setAjaxParam([[${_csrf.parameterName}]], [[${_csrf.token}]] );
+   
+     }
+
+    return {
+
+        //main function to initiate the module
+        init: function () {
+ 		
+           handleRecords();
+        }
+
+    };
+
+}();
+
+jQuery(document).ready(function() {
+   TableDatatablesAjax.init();
+ });
+
+  function getCheckBox ( data, type, row ) {
+                    if ( type === 'display' ) {
+                        return '<input type="checkbox"  class=" checkboxes" name="id" value="'+data+'"/>';
+                    }
+                    return data;
+                }
+  
+     function getOperateBox( data, type, row ) {
+                     if ( type === 'display' ) {
+                        returnUrl =  '<a href="edit/'+data+'" class="btn  btn-xs  default"><i class="fa fa-pencil"></i> 修改 </a><a href="delete/'+data+'" class="btn  red-sunglo btn-xs delete"><i class="fa fa-close"></i> 删除 </a>';
+                        return returnUrl;
+                    }
+                    return data;
+                 }
+
+	 var table = $([[${tableName}]]);
+   
+         table.on('click', '.delete', function (e) {
+          //  e.preventDefault();
+	        if (confirm("Are you sure to delete this row ?") == false) {
+                return false;
+            }
+	  //      var nRow = $(this).parents('tr')[0];
+    //        oTable.fnDeleteRow(nRow);
+    //这里添加 AJAX删除，然后返回消息。
+       		else	return true;
+        });
+/*]]>*/
+</script>
+

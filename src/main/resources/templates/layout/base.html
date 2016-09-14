@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:replace="fragments/init :: head">
+        <title>Title</title> 
+    </head>
+   <section layout:fragment="content">
+      <p>Text Template</p>
+    </section>
+    <footer th:replace="fragments/init :: footer">
+        Year List
+    </footer>
+</html>

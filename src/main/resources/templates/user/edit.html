@@ -1,0 +1,126 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorator="/demo/blank_page">
+   <div  layout:fragment="content">
+          <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold">人员管理</span>
+                                    </div>
+             </div>
+                                <div class="portlet-body">
+                                    <div class="table-toolbar">
+                                     
+                                    </div>
+<form class="form-horizontal" action="#" th:action="@{/user/save}" th:object="${systemUser}" method="post">
+<input type="hidden" id="id" name="id"  th:field="*{id}"/>
+
+  
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">登陆名称</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control " id="login" placeholder="登陆名称" name="login"  th:field="*{login}"/>
+      <span th:if="${#fields.hasErrors('login')}"  th:errors="*{login}"  >Name Error</span>
+    </div> 
+  </div>
+  
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">名字称呼</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control " id="nicename" placeholder="名字称呼" name="nicename"  th:field="*{nicename}"   />
+      <span th:if="${#fields.hasErrors('nicename')}"  th:errors="*{nicename}"  >Name Error</span>
+    </div> 
+  </div>
+  
+    <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">邮箱</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="email" placeholder="邮箱" name="email"  th:field="*{email}"/>
+      <span th:if="${#fields.hasErrors('email')}"  th:errors="*{email}"  >Name Error</span>
+    </div> 
+  </div>
+   <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">用户当前角色</label>
+    <div class="col-sm-10"  th:each="role: ${allRoles}">
+		  <input type="checkbox"  name="roles"  th:field="*{roles}"  th:value="${role.id}"/>
+       <label  th:text="${role.text}">Heating</label> 
+    </div> 
+  </div>
+  
+   <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">状态</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="avaliable" placeholder="状态" name="avaliable"  th:field="*{avaliable}"/>
+      <span th:if="${#fields.hasErrors('avaliable')}"  th:errors="*{avaliable}"  >Name Error</span>
+    </div> 
+  </div>
+  
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">部门编号</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="groupId" placeholder="状态" name="groupId"  th:field="*{groupId}"/>
+      <span th:if="${#fields.hasErrors('groupId')}"  th:errors="*{groupId}"  >Name Error</span>
+    </div> 
+  </div>
+
+     <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">注册时间</label>
+    <div class="col-sm-10">
+      
+      <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+										   <input type="text" class="form-control" id="registered" placeholder="状态" name="registered"  th:field="*{registered}"/>
+  		<span class="input-group-btn">
+											<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+											</span>
+										</div>
+       <span th:if="${#fields.hasErrors('registered')}"  th:errors="*{registered}"  >Name Error</span>
+    </div> 
+  </div>
+  
+       <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">最后登陆时间</label>
+    <div class="col-sm-10">
+      <div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+										   <input type="text" class="form-control" id="lastlogin" placeholder="状态" name="lastlogin"  th:field="*{lastlogin}"/>
+  		<span class="input-group-btn">
+											<button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+											</span>
+										</div>
+       <span th:if="${#fields.hasErrors('lastlogin')}"  th:errors="*{lastlogin}"  >Name Error</span>
+    </div> 
+  </div>
+  
+ <div class="form-group">
+    <div class="col-sm-2">
+      <button type="reset" class="btn btn-default">取 消</button>
+    </div>
+    <div class="col-sm-2">
+      <button type="submit" class="btn btn-default">保 存</button>
+    </div>
+         <div class="col-sm-2">
+      <a    th:href="@{/user/index}" class="btn btn-default">返   回</a>
+    </div>
+  </div>
+</form>
+                        </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>   
+    </div>
+ <section  layout:fragment="pageScript">
+  <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+ <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+ <script src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+ <script src="/assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>   
+
+  </section>
+   </html>
+
+    
+
+    
+
+    

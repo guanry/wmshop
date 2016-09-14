@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+
+    <head   th:replace="/fragment/head :: head"/>
+    <!-- END HEAD -->
+
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top" th:replace="/fragment/header :: header"/>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER  &amp; CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER  &amp; CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- BEGIN SIDEBAR -->
+                   <div  th:replace="/fragment/slidermenu::slidermenu" /> 
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEADER-->
+                    <!-- BEGIN THEME PANEL -->
+                  <!--  <div th:replace="/fragment/themepanel :: themePanel"/> -->
+                    <!-- END THEME PANEL -->
+                    <!-- BEGIN PAGE BAR -->
+                    <div class="page-bar">
+                        <ul class="page-breadcrumb">
+                            <li>
+                                <a href="index.html">Home</a>
+                                <i class="fa fa-circle"></i>
+                            </li>
+                            <li>
+                                <span>Page Layouts</span>
+                            </li>
+                        </ul>
+                  <!--      <div th:replace="/fragment/page-toolbar :: page-toolBar"/>  -->
+                    </div>
+                    <!-- END PAGE BAR -->
+                    <!-- BEGIN PAGE TITLE-->
+      
+                    <h3 class="page-title" th:inline="text">[[${pageName}]]
+                        <small>[[${smallName}]]</small>
+                    </h3>
+                    <!-- END PAGE TITLE-->
+                    <!-- END PAGE HEADER-->
+              <!-- 页面的主要内容 开始 -->
+                <section layout:fragment="content">
+    			  <div class="note note-info">
+                        <p > A black page template with a minimal dependency assets to use as a base for any custom page you create </p>
+                    </div>
+    </section>
+                   
+                  
+             <!-- 页面的主要内容 结束 -->
+            
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+ 
+      <!--      <a href="javascript:;" class="page-quick-sidebar-toggler" >
+                <i class="icon-login"></i>
+            </a>
+       <div th:replace="/fragment/quicksidebar :: quickSidebar"/> -->
+        </div>
+        
+    
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer" th:replace="/fragment/footer::footer"/>
+          
+        <!-- END FOOTER -->
+        <!--[if lt IE 9]>
+<script src="/assets/global/plugins/respond.min.js"></script>
+<script src="/assets/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <div  th:replace="/fragment/plugins::plugins"/>
+        <!-- END THEME LAYOUT SCRIPTS -->
+<section  layout:fragment="pageScript">
+
+</section>
+
+<script type="text/javascript"  >
+ $(function(){ 
+ 	$(".sub-menu .nav-link").click(function(){
+ 			$(".nav-item").removeClass('active open');
+ 			$(this).parent().addClass('active open');
+ 			$(this).parent().parent().parent().addClass('active open');
+ 			Cookies.set('MENU_COOKIE_NAME', $(this).attr("id"));
+ 			
+ 	});
+ 	var object = Cookies.get('MENU_COOKIE_NAME');
+ 		if(object){
+
+		 var yy = '#'+object;
+		 $(yy).click();
+ 	}
+ 	
+ 	
+ 	$(".js-log-out").click(function(){
+ 	     $('#logout_form').submit();
+ 	});
+}); 
+</script>
+    </body>
+</html>

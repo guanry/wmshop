@@ -1,0 +1,81 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorator="/demo/blank_page">
+   <div  layout:fragment="content">
+          <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings"></i>
+                                        <span class="caption-subject sbold">人员管理</span>
+                                    </div>
+             </div>
+                                <div class="portlet-body">
+                                    <div class="table-toolbar">
+                                     
+                                    </div>
+<form class="form-horizontal" action="#" th:action="@{/role/save}" th:object="${systemRole}" method="post">
+<input type="hidden" id="id" name="id"  th:field="*{id}"/>
+
+  
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">角色代码</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control " id="name" placeholder="角色代码" name="name"  th:field="*{name}"/>
+      <span th:if="${#fields.hasErrors('name')}"  th:errors="*{name}"  >Name Error</span>
+    </div> 
+  </div>
+  
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">名字</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control " id="text" placeholder="名字" name="text"  th:field="*{text}"   />
+      <span th:if="${#fields.hasErrors('text')}"  th:errors="*{text}"  >Name Error</span>
+    </div> 
+  </div>
+  
+  
+  
+   <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">状态</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="avaliable" placeholder="状态" name="avaliable"  th:field="*{avaliable}"/>
+      <span th:if="${#fields.hasErrors('avaliable')}"  th:errors="*{avaliable}"  >Name Error</span>
+    </div> 
+  </div>
+
+  
+  
+  
+ <div class="form-group">
+    <div class="col-sm-2">
+      <button type="reset" class="btn btn-default">取 消</button>
+    </div>
+    <div class="col-sm-2">
+      <button type="submit" class="btn btn-default">保 存</button>
+    </div>
+         <div class="col-sm-2">
+      <a    th:href="@{/user/index}" class="btn btn-default">返   回</a>
+    </div>
+  </div>
+</form>
+                        </div>
+                            </div>
+                            <!-- END EXAMPLE TABLE PORTLET-->
+                        </div>
+                    </div>   
+    </div>
+ <section  layout:fragment="pageScript">
+  <script src="/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+ <script src="/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+ <script src="/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+ <script src="/assets/pages/scripts/form-validation.min.js" type="text/javascript"></script>   
+
+  </section>
+   </html>
+
+    
+
+    
+
+    
