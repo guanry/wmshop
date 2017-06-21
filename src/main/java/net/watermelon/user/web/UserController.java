@@ -22,6 +22,7 @@ import net.watermelon.user.vo.UserSearch;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,11 +33,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
@@ -47,7 +49,7 @@ public class UserController {
 	 * @return
 	 */
 
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public String indexSearch(Model model) {
 		return "/user/index";
 	}
@@ -119,8 +121,7 @@ public class UserController {
 	 public String setupForm( Model model) {
 		SystemUser  user = null;
 		user = new SystemUser();
-	
-		model.addAttribute(user);
+			model.addAttribute(user);
 		return "/user/edit";
 	}
 
@@ -132,7 +133,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/edit/{id}")
+	@RequestMapping(value = "/{id}" , method = RequestMethod.GET )
 	 public String setupForm(@PathVariable("id")  Integer id, Model model) {
 		SystemUser  user = null;
 		if (id == 0) {
@@ -147,7 +148,15 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping("/save")
+	/**
+	 * 保存更新
+	 * @param user
+	 * @param result
+	 * @param status
+	 * @param errors
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public String save(@Valid @ModelAttribute SystemUser user,BindingResult result,SessionStatus status, Errors errors) {
 		if (errors.hasErrors()) {
 				return "/user/edit";
@@ -157,16 +166,20 @@ public class UserController {
 		user.setPass(pp);
 		userDao.save(user);
 		status.setComplete();
-	 	return "redirect:/user/index";
+	 	return "redirect:/users/";
 		}
 
 	}
 	
-	
-	@RequestMapping("delete/{id}")
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable("id")  Integer id) {
 		userDao.delete(id);
-		return "redirect:/user/index";
+		return "redirect:/users/";
     }
 	
 }

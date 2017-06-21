@@ -9,20 +9,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 
-
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
 @SpringBootApplication
 public class DemoApplication {
-	
+
 	@Bean
 	public HibernateJpaSessionFactoryBean sessionFactory() {
-	    return new HibernateJpaSessionFactoryBean();
+		return new HibernateJpaSessionFactoryBean();
 	}
-	
 
-	
+ 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}

@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -26,7 +26,7 @@ public class Organization {
 	
 
 	@NotEmpty
-	 @Size(min = 3)
+	@Size(min = 3)
 	@Column(name = "org_name") 
 	private String name;
 	
@@ -76,9 +76,6 @@ public class Organization {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-
-
-
 
 	public Integer getId() {
 		return id;

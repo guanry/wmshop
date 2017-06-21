@@ -84,7 +84,7 @@ public class OrganzationManager {
 		List<Organization>  list= 	organizationDao.getUnTreeOrg();
 		return list;
 	}
-
+	@Transactional
 	public void savePos(Integer[] treeId, Integer[] pos) {
 		// TODO Auto-generated method stub
 		for(int i=0;i<treeId.length;i++){
@@ -93,5 +93,38 @@ public class OrganzationManager {
 			treeDao.save(tree);
 		}
 	}
+	@Transactional
+	public void saveUnOrg(Integer[] idx,Integer treeId) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<idx.length;i++){
+			Organization organization  = organizationDao.getOne(idx[i]);
+			Tree tree = new Tree();
+			tree.setText(organization.getName());
+			tree.setParentId(treeId);
+			treeDao.save(tree);
+			organization.setTreeId(tree.getId());
+			organizationDao.save(organization);
+		}
+	}
+
 	
+	/**
+	 * 取消组织机构的树关系
+	 * @param treeId
+	 * @param orgId
+	 * @throws Exception 
+	 */
+	@Transactional
+	public void removeTreeRela(Integer  orgId) throws Exception {
+	
+		Organization organization  = organizationDao.getOne(orgId);
+		Tree tree = treeDao.getOne(organization.getTreeId());
+		if(tree.getChildren().size()>0){
+			throw new Exception("只能删除叶子节点");
+		}
+		treeDao.delete(organization.getTreeId());
+		organization.setTreeId(null);
+		organizationDao.save(organization);
+	
+	}
 }

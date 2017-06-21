@@ -5,8 +5,18 @@ import java.util.List;
 public class ValidationResponse {
 	private String status;
 	 private List<ValidationMessage> errorMessageList;
+	 private String message;
 
-	 public String getStatus() {
+	 
+	 
+	 
+	 public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getStatus() {
 	   return status;
 	 }
 	 public void setStatus(String status) {

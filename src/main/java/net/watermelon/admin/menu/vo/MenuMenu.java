@@ -33,7 +33,7 @@ public class MenuMenu {
 	  * 这里怎样国际化
 	  */
 	@NotEmpty(message="menu.not.empty")  
-	@Column(name = "name")
+	@Column(name = "NAME")
 		private String name;
 	
 //	@Email(message = "必须是Email 格式")

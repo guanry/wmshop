@@ -73,7 +73,7 @@ public final class MenuSearchCriteria implements SearchBean , Serializable {
 
 
 	public String getSQL() {
-			String querysql = "from Menu where 1=1";
+			String querysql = "from MenuMenu where 1=1";
 			
 			if (id != null && id.length()>0 ) {
 			querysql = querysql + " and id  = " + id ;

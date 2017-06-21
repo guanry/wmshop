@@ -44,31 +44,21 @@ import org.springframework.web.bind.support.SessionStatus;
 @RequestMapping("/org")
 public class OrganizationController {
 
-	/**
-	 * 初始化到列表页面
-	 * 
-	 * @return
-	 */
 
-	@RequestMapping("/index")
-	public String indexSearch(Model model, HttpSession session) {
-		session.removeAttribute("orgPath");
-		return "/org/index";
-	}
 
 	@ModelAttribute("pageName")
 	private String pageName() {
-		return "OrganizationPage";
+		return "组织机构";
 	}
 
 	@ModelAttribute("smallName")
 	private String smallName() {
-		return "OrganizationPageList";
+		return "组织机构管理";
 	}
 
 	@ModelAttribute("panelTitle")
 	private String panelTitle() {
-		return "组织机构管理列表";
+		return "组织机构管理";
 	}
 
 	@Autowired
@@ -188,7 +178,7 @@ public class OrganizationController {
 	
 	
 	/**
-	 * 部门管理主界面
+	 *   组织机构管理 入口页面
 	 */
 	@RequestMapping("main")
 	public String main(){
@@ -270,8 +260,8 @@ public class OrganizationController {
 	/**
 	 * 未管理部门
 	 */
-	@RequestMapping("/org_un_member_json")
-	public String getUnManagerPerson(Model model){
+	@RequestMapping("/org_un_member_json/{id}")
+	public String getUnManagerPerson(@PathVariable("id") Integer id,Model model){
 		List<SystemUser>  members = organzationManager.getUnOrgMembers();
 		model.addAttribute("members",members);
 		return "/org/orgSons::orgMembers";
@@ -281,10 +271,11 @@ public class OrganizationController {
 	/**
 	 * 未管理人员
 	 */
-	@RequestMapping("/org_un_menager_json")
-	public String getUnManageOrg(Model model){
+	@RequestMapping("/org_un_menager_json/{id}")
+	public String getUnManageOrg(@PathVariable("id") Integer id,Model model){
 		List<Organization>  orgs = organzationManager.getUnOrg();
 		model.addAttribute("orgs",orgs);
+		model.addAttribute("treeId",id);
 		return "/org/orgSons::orgUnManager";
 		
 	}
@@ -294,9 +285,13 @@ public class OrganizationController {
 	 */
 	@ResponseBody
 	@RequestMapping("/add_org_list")
-	public String addUnOrg(Integer[] idx){
-		organzationManager.saveUnOrg(idx);
-			return "/org/orgSons::orgSons";
+	public ValidationResponse addUnOrg(Integer[] idx,Integer treeId,SessionStatus status){
+		ValidationResponse validationResponse = new ValidationResponse();
+		organzationManager.saveUnOrg(idx,treeId);
+		 status.setComplete();
+		 validationResponse.setStatus("SUCCESS");
+		return validationResponse;
+	
 	}
 	
 	/**
@@ -314,5 +309,27 @@ public class OrganizationController {
 		 status.setComplete();
 		 validationResponse.setStatus("SUCCESS");
 		return validationResponse;
+	}
+	
+	/**
+	 * 删除树型关系
+	 */
+	@ResponseBody
+	@RequestMapping("/remove_tree_relation")
+	public ValidationResponse remove_tree_relation(Integer orgId, SessionStatus status){
+		ValidationResponse validationResponse = new ValidationResponse();
+		try {
+			organzationManager.removeTreeRela(orgId);
+			 status.setComplete();
+			 validationResponse.setStatus("SUCCESS");
+			return validationResponse;
+		
+		} catch (Exception e) {
+			 status.setComplete();
+			 validationResponse.setStatus("FAIL");
+			 validationResponse.setMessage(e.getMessage());
+			return validationResponse;
+		}
+		
 	}
 }

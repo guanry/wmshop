@@ -19,7 +19,11 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Cascade;
 
 
-
+/**
+ * 系统是树形关系表达，可以统一用这个树形结构
+ * @author guanxi
+ *
+ */
 
 @Entity
 @Table(name = "WM_TREES")
@@ -91,9 +95,6 @@ public class Tree {
 	@Transient 
 	private TreeState state = new TreeState();
 	
-
-	
-
 	public int getParentId() {
 		return parentId;
 	}
